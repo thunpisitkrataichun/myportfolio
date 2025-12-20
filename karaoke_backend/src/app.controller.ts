@@ -1,12 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
 
-@Controller()
+@Controller() // ว่างไว้แบบนี้คือ route หลัก (/)
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
+  @Get() // ตรวจสอบว่ามี @Get() ตกแต่งอยู่เหนือ function
   getHello(): string {
-    return this.appService.getHello();
+    return 'เชื่อมต่อสำเร็จแล้ว! NestJS รันอยู่ที่พอร์ต ' + (process.env.PORT ?? 8000);
   }
 }

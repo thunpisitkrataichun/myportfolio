@@ -1,6 +1,6 @@
-'use client'
-import React from 'react';
-
+"use client";
+import React from "react";
+import Link from "next/link";
 interface RegisterPageProps {
   onBackToLogin?: () => void;
 }
@@ -8,10 +8,8 @@ interface RegisterPageProps {
 const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-6 py-12">
-      
       {/* Card Container */}
       <div className="bg-white w-full max-w-md p-10 rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 relative">
-        
         {/* Header */}
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">
@@ -24,7 +22,6 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
 
         {/* Form Section */}
         <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-          
           {/* Full Name */}
           <div>
             <input
@@ -89,8 +86,8 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
           <button
             type="submit"
             className="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold 
-                       rounded-2xl shadow-lg shadow-emerald-500/20 transition-all duration-300 
-                       active:scale-[0.98] mt-4"
+             rounded-2xl shadow-lg shadow-emerald-500/20 transition-all duration-300 
+             active:scale-[0.98] mt-4 cursor-pointer relative z-20"
           >
             สร้างบัญชี
           </button>
@@ -99,12 +96,13 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
         {/* Footer */}
         <div className="mt-8 text-center text-sm">
           <span className="text-gray-400 font-medium">มีบัญชีอยู่แล้ว? </span>
-          <button 
-            onClick={onBackToLogin}
-            className="text-emerald-600 font-bold hover:text-emerald-700 transition-colors"
+
+          <Link
+            href="/Loginpage"
+            className="text-emerald-600 font-bold hover:text-emerald-700 transition-colors cursor-pointer relative z-10 p-1"
           >
             เข้าสู่ระบบ
-          </button>
+          </Link>
         </div>
       </div>
     </div>
