@@ -4,8 +4,8 @@ import React from "react";
 
 const Header = () => {
   const navItems = [
-    { name: "Home", href: "#" },
-    { name: "About", href: "#" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
   ];
   return (
     /* เปลี่ยนจาก fixed เป็น absolute และเอา backdrop-blur ออกเพราะไม่ได้ลอยทับใครแล้ว */
@@ -23,13 +23,13 @@ const Header = () => {
           {/* Dynamic Menu Items */}
           <div className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
 
