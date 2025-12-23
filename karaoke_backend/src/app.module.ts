@@ -4,6 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller'; // เพิ่มการ import
 import { AppService } from './app.service';
 import { Users } from './users/users.entity';
+import { UsersModule } from './users/users.module';
+import { UsersController } from './users/users.controller';
+import { UsersService } from './users/users.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -19,8 +22,10 @@ import { Users } from './users/users.entity';
       entities: [Users],
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([Users]),
+    UsersModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, UsersController],
+  providers: [AppService, UsersService],
 })
 export class AppModule {}

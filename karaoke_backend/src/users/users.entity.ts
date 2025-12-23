@@ -4,10 +4,13 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 export class Users {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column({ unique: true })
+
+  @Column({ type: 'varchar', length: 100, unique: true })
   username: string;
-  @Column({ unique: true })
+
+  @Column({ type: 'varchar', length: 100, unique: true })
   email: string;
-  @Column()
+
+  @Column({ type: 'varchar', length: 100 })
   password: string;
 }
