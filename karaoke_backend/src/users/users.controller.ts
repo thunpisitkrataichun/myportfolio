@@ -14,6 +14,11 @@ export class UsersController {
     return 'This is a test endpoint';
   }
 
+  @Get('findOne')
+  getOneUser(username: string) {
+    // รับค่าจาก URL เช่น /users/findone?username=john
+    return this.usersService.findByUsername(username);
+  }
   @Post('createUser')
   createUser(@Body() createUsersDto: CreateUsersDto) {
     return this.usersService.createUser(createUsersDto);

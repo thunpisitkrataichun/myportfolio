@@ -5,3 +5,5 @@ export const store = configureStore({
     userCreate: userCreateReducer,
   },
 });
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

@@ -1,11 +1,54 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+
 interface RegisterPageProps {
   onBackToLogin?: () => void;
 }
 
+interface FormData {
+  fullName: string;
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
+}
+
 const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
+  const [formData, setFormData] = React.useState({
+    fullName: "",
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const apiUrl = "http://localhost:8000/users/createUser";
+  const router = useRouter();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const payload = {
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+    };
+    try {
+      const response = await axios.post(apiUrl, payload);
+      console.log("Registration successful:", response.data);
+      router.push("/");
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-6 py-12">
       {/* Card Container */}
@@ -26,6 +69,9 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
           <div>
             <input
               type="text"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
               placeholder="Full Name"
               className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl 
                          focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 
@@ -38,6 +84,9 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
           <div>
             <input
               type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="Email Address"
               className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl 
                          focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 
@@ -50,6 +99,9 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
           <div>
             <input
               type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
               placeholder="Username"
               className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl 
                          focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 
@@ -62,6 +114,9 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
           <div>
             <input
               type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               placeholder="Password"
               className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl 
                          focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 
@@ -74,6 +129,9 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
           <div>
             <input
               type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
               placeholder="Confirm Password"
               className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl 
                          focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 
@@ -85,6 +143,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
           {/* Register Button */}
           <button
             type="submit"
+            onClick={handleSubmit}
             className="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold 
              rounded-2xl shadow-lg shadow-emerald-500/20 transition-all duration-300 
              active:scale-[0.98] mt-4 cursor-pointer relative z-20"
