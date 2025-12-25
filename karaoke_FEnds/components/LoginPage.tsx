@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import axios from "axios";
 
 interface LoginPageProps {
   onBack?: () => void;
@@ -24,8 +25,18 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
     e.preventDefault(); // Prevents the page from refreshing
     // Logic for handling login submission
     console.log("Attempting login with:", form);
+    try {
+      const response = await axios.get("http://localhost:8000/users", {
+        params: {
+          username: form.username,
+          password: form.password,
+        },
+      });
+      console.log("Login successful:", response.data);
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
-
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-6">
       <div className="bg-white w-full max-w-md p-10 rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 relative">
