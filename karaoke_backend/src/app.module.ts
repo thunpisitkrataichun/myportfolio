@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { CustomersModule } from './customers/customers.module';
+import { Customers } from './customers/customers.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -20,10 +21,10 @@ import { CustomersModule } from './customers/customers.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [Users],
+      entities: [Users, Customers],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Users]),
+    TypeOrmModule.forFeature([Users, Customers]),
     UsersModule,
     CustomersModule,
   ],
