@@ -1,8 +1,16 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import { RootState } from "@/lib/Store/store";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const username = useSelector((state: RootState) => state.userCreate.username);
+  const displayName = username ? username : "Guest";
+  const handleLogout = () => {
+    // Logic to clear user session or token can be added here
+    // For now, we will just reload the page to simulate logout
+    window.location.reload();
+  };
   const navItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
@@ -17,7 +25,10 @@ const Header = () => {
             MyWebsite
           </div>
         </Link>
-
+        {/* Display Username */}
+        <div className="text-sm font-medium text-gray-700">
+          {displayName != "Guest" ? "Username : " + displayName : ""}
+        </div>
         {/* Right: Navigation Menu */}
         <nav className="flex items-center gap-8">
           {/* Dynamic Menu Items */}
@@ -34,11 +45,20 @@ const Header = () => {
           </div>
 
           {/* Log In Button */}
-          <Link href={"/Loginpage"}>
-            <button className="px-5 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-full transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer">
-              Log in
+          {displayName !== "Guest" ? (
+            <button
+              className="px-5 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-full transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer"
+              onClick={handleLogout}
+            >
+              Log out
             </button>
-          </Link>
+          ) : (
+            <Link href={"/Loginpage"}>
+              <button className="px-5 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-full transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer">
+                Log in
+              </button>
+            </Link>
+          )}
         </nav>
       </div>
     </header>

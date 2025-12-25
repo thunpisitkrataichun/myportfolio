@@ -37,7 +37,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
           password: form.password,
         },
       });
-      
+      if (response.data.length === 0) {
+        alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+        return;
+      }
       // สมมติว่า Backend ส่ง data กลับมาสำเร็จ
       console.log("Login successful:", response.data);
 

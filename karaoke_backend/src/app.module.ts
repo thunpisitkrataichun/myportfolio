@@ -7,6 +7,7 @@ import { Users } from './users/users.entity';
 import { UsersModule } from './users/users.module';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
+import { CustomersModule } from './customers/customers.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -24,6 +25,7 @@ import { UsersService } from './users/users.service';
     }),
     TypeOrmModule.forFeature([Users]),
     UsersModule,
+    CustomersModule,
   ],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService],
