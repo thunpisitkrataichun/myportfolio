@@ -22,7 +22,10 @@ export class UsersService {
     const newUser = this.usersRepository.create(createUsersDto);
     return this.usersRepository.save(newUser);
   }
-  validateUser(username: string, password: string) {
-    return this.usersRepository.findOne({ where: { username, password } });
+  validateUser(username: string, password: string): Promise<Users | null> {
+    // ค้นหาข้อมูลที่ตรงทั้ง username และ password ตรงๆ
+    return this.usersRepository.findOne({
+      where: { username, password },
+    });
   }
 }

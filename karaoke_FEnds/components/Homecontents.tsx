@@ -1,15 +1,23 @@
-'use client'
-import CardContainer from './CardContainer';
-
+"use client";
+import CardContainer from "./CardContainer";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/Store/store";
+import { useEffect } from "react";
 const HomeContent = () => {
+  const username = useSelector((state: RootState) => state.userCreate.username);
+  useEffect(() => {
+    console.log("current username"+ ` ${username}`);
+  }, []);
   return (
     /* เพิ่ม pt-32 หรือ pt-40 เพื่อดันเนื้อหาลงมาจาก Header ที่เป็น absolute */
+
     <main className="pt-40 pb-20 bg-white flex flex-col items-center justify-center px-6">
       <div className="max-w-4xl w-full text-center">
-        
         {/* คราวนี้ H1 จะไม่จมแล้ว */}
         <h1 className="text-4xl md:text-7xl font-bold text-gray-900 tracking-tight leading-tight mb-12">
-          ร้องเพลงใดก็ได้<br className="hidden md:block" />ที่ต้องการร้อง
+          ร้องเพลงใดก็ได้
+          <br className="hidden md:block" />
+          ที่ต้องการร้อง
         </h1>
 
         {/* Search Bar */}

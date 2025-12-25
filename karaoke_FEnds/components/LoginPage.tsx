@@ -1,40 +1,52 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUsername } from "@/lib/feature/userSlice";
 
 interface LoginPageProps {
   onBack?: () => void;
 }
 
 const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   const [form, setForm] = React.useState({
     username: "",
     password: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // We use e.target.name to match the keys in our 'form' state
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+    
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevents the page from refreshing
-    // Logic for handling login submission
-    console.log("Attempting login with:", form);
+    e.preventDefault();
+
     try {
-      const response = await axios.get("http://localhost:8000/users", {
+      const response = await axios.get("http://localhost:8000/users/validate", {
         params: {
           username: form.username,
           password: form.password,
         },
       });
+      
+      // สมมติว่า Backend ส่ง data กลับมาสำเร็จ
       console.log("Login successful:", response.data);
+
+      // ✅ เก็บชื่อผู้ใช้ลงใน Redux
+      dispatch(setUsername(form.username));
+      router.push("/");
     } catch (error) {
       console.error("Login failed:", error);
+      alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
     }
   };
   return (

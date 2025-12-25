@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUsersDto } from './dto/create-users.dto';
 
@@ -16,19 +16,17 @@ export class UsersController {
     return 'This is a test endpoint';
   }
 
-  // แก้ไข: ใช้ @Query เพื่อรับค่าจาก /users/findOne?username=john
   @Get('findOne')
   getOneUser(@Query('username') username: string) {
     return this.usersService.findByUsername(username);
   }
 
-  // แก้ไข: หากต้องการใช้ @Param ต้องระบุโครงสร้าง path ใน @Get
-  // URL จะเป็น: /users/validate/john/1234
-  @Get('validate/:username/:password')
+  @Get('validate') // ลบ :username/:password ออก
   validateUser(
-    @Param('username') username: string,
-    @Param('password') password: string,
+    @Query('username') username: string, // เปลี่ยนจาก @Param เป็น @Query
+    @Query('password') password: string,
   ) {
+    console.log(`Validating user: ${username} with password: ${password}`);
     return this.usersService.validateUser(username, password);
   }
 

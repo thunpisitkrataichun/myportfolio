@@ -3,17 +3,10 @@ import React from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
+import { useDispatch } from "react-redux";
+import { setUsername } from "@/lib/feature/userSlice";
 interface RegisterPageProps {
   onBackToLogin?: () => void;
-}
-
-interface FormData {
-  fullName: string;
-  email: string;
-  username: string;
-  password: string;
-  confirmPassword: string;
 }
 
 const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
@@ -31,10 +24,10 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-
+  const dispatch = useDispatch();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const payload = {
       username: formData.username,
       email: formData.email,
@@ -43,6 +36,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
     try {
       const response = await axios.post(apiUrl, payload);
       console.log("Registration successful:", response.data);
+      dispatch(setUsername(formData.username));
       router.push("/");
     } catch (error) {
       console.error("Registration failed:", error);
