@@ -19,6 +19,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
   });
 
   const apiUrl = "http://localhost:8000/users/createUser";
+  const apiUrl2 = "http://localhost:8000/customers/createCustomer";
   const router = useRouter();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,9 +34,17 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
       email: formData.email,
       password: formData.password,
     };
+
+    const payload2 = {
+      fullName: formData.fullName,
+      username: formData.username,
+    };
+
     try {
       const response = await axios.post(apiUrl, payload);
-      console.log("Registration successful:", response.data);
+      //
+      const response2 = await axios.post(apiUrl2, payload2);
+      console.log("Registration successful:", response.data , response2.data);
       dispatch(setUsername(formData.username));
       router.push("/");
     } catch (error) {

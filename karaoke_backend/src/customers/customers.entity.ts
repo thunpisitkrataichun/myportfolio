@@ -9,8 +9,5 @@ export class Customers {
   fullName: string;
 
   @Column()
-  lastName: string;
-
-  @Column()
   username: string;
 }
