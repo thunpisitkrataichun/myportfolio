@@ -1,6 +1,5 @@
 'use client'
 import React from 'react';
-
 const AboutPage: React.FC = () => {
   return (
     <main className="min-h-screen bg-white pt-32 pb-20 px-6">

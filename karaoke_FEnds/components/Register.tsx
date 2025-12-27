@@ -9,7 +9,7 @@ interface RegisterPageProps {
   onBackToLogin?: () => void;
 }
 
-const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
+const RegisterPage: React.FC<RegisterPageProps> = () => {
   const [formData, setFormData] = React.useState({
     fullName: "",
     email: "",
@@ -17,7 +17,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
     password: "",
     confirmPassword: "",
   });
-
+  
   const apiUrl = "http://localhost:8000/users/createUser";
   const apiUrl2 = "http://localhost:8000/customers/createCustomer";
   const router = useRouter();
@@ -44,7 +44,8 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onBackToLogin }) => {
       const response = await axios.post(apiUrl, payload);
       //
       const response2 = await axios.post(apiUrl2, payload2);
-      console.log("Registration successful:", response.data , response2.data);
+      console.log("Registration successful:", response.data);
+      console.log(response2.data);
       dispatch(setUsername(formData.username));
       router.push("/");
     } catch (error) {

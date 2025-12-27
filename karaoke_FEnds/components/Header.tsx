@@ -1,22 +1,21 @@
 "use client";
 import Link from "next/link";
 import { RootState } from "@/lib/Store/store";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setUsername } from "@/lib/feature/userSlice";
 const Header = () => {
   const username = useSelector((state: RootState) => state.userCreate.username);
   const displayName = username ? username : "Guest";
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleLogout = () => {
     // Logic to clear user session or token can be added here
     // For now, we will just reload the page to simulate logout
-    dispatch(setUsername(""))
+    dispatch(setUsername(""));
     window.location.reload();
   };
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
+    { name: "About", href: "/Aboutpage" },
   ];
   return (
     /* เปลี่ยนจาก fixed เป็น absolute และเอา backdrop-blur ออกเพราะไม่ได้ลอยทับใครแล้ว */
